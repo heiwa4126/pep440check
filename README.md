@@ -5,35 +5,67 @@
 ![Last Commit](https://img.shields.io/github/last-commit/heiwa4126/pep440check)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-pyproject.toml の project.version のバージョン文字列が PEP 440 準拠であるか判定し、準拠していなければ正規形を提案するユーティリティ。
-またオプションで正規形に書き換えることもできる。
+A utility to check if version strings in pyproject.toml's project.version are PEP 440 compliant and suggest normalized forms if they are not.
+Optionally, it can rewrite the file with the normalized version.
 
-## 使い方
+## Basic usage
 
-pep440check [<pyproject.toml のパス>] [-w]
+```sh
+pep440check [path] [-w] [-h]
+```
 
-パスを省略した場合はcwdのpyproject.tomlが対象
-オプション無しの場合は、元のバージョン文字列と正規化後のバージョン文字列をstdout
--wオプションで正規化して元のpyproject.toml を書き換え
+- `path`: Path to pyproject.toml (defaults to current directory's pyproject.toml if omitted)
+- `-w, --write`: Write normalized version back to file
+- `-h, --help`: Show help message and exit
 
-## インストールと実行
+### Exit codes
+
+- `0`: Version is already PEP 440 compliant (displays "OK")
+- `1`: Version needs normalization or error occurred
+
+### Output examples
+
+**When version is already normalized:**
+
+```
+$ pep440check
+Target: /path/to/pyproject.toml
+OK
+```
+
+**When version needs normalization:**
+
+```
+$ pep440check
+Target: /path/to/pyproject.toml
+Original version: 1.0.0-rc1
+Suggested normalized version: 1.0.0rc1
+```
+
+**Writing normalized version:**
+
+```
+$ pep440check -w
+Target: /path/to/pyproject.toml
+Normalized version: 1.0.0-rc1 -> 1.0.0rc1
+```
+
+## Installation and Usage
 
 ```sh
 uv add pep440check --dev
 uv run pep440check [args]
 ```
 
-または
+or
 
 ```sh
 uvx pep440check [args]
 ```
 
-または
+or
 
 ```sh
 uv tool install pep440check
 pep440check [args]
 ```
-
-など
