@@ -5,7 +5,7 @@
 ![Last Commit](https://img.shields.io/github/last-commit/heiwa4126/pep440check)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A utility to check if version strings in pyproject.toml's project.version are PEP 440 compliant and suggest normalized forms if they are not.
+A utility to check if version strings in pyproject.toml's project.version are [PEP 440](https://peps.python.org/pep-0440/) compliant and suggest normalized forms if they are not.
 Optionally, it can rewrite the file with the normalized version.
 
 ## Basic usage
@@ -30,7 +30,7 @@ pep440check [path] [-w] [-h]
 ```
 $ pep440check
 Target: /path/to/pyproject.toml
-OK
+OK: 0.0.1a1
 ```
 
 **When version needs normalization:**
@@ -75,7 +75,7 @@ pep440check [args]
 ```sh
 git clone https://github.com/heiwa4126/pep440check.git
 cd pep440check
-uv sync --dev
+uv sync
 ```
 
 Run tests:
