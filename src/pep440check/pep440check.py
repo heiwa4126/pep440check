@@ -38,33 +38,33 @@ def main() -> None:
     """メイン処理"""
     import argparse
 
-    parser = argparse.ArgumentParser(description="PEP 440バージョンチェック・正規化")
+    parser = argparse.ArgumentParser(description="Check and normalize PEP 440 version strings")
     parser.add_argument(
-        "path", nargs="?", default="pyproject.toml", help="pyproject.tomlのパス"
+        "path", nargs="?", default="pyproject.toml", help="Path to pyproject.toml"
     )
-    parser.add_argument("-w", "--write", action="store_true", help="正規化して書き換え")
+    parser.add_argument("-w", "--write", action="store_true", help="Write normalized version back to file")
 
     args = parser.parse_args()
 
     toml_path = Path(args.path).resolve()
-    print(f"対象: {toml_path}")
+    print(f"Target: {toml_path}")
 
     if not toml_path.exists():
-        print(f"エラー: {toml_path} が見つかりません", file=sys.stderr)
+        print(f"Error: {toml_path} not found", file=sys.stderr)
         sys.exit(1)
 
     try:
         data = load_pyproject_toml(toml_path)
         version_str = data["project"]["version"]
     except (KeyError, tomllib.TOMLDecodeError) as e:
-        print(f"エラー: pyproject.tomlの読み込みに失敗: {e}", file=sys.stderr)
+        print(f"Error: Failed to read pyproject.toml: {e}", file=sys.stderr)
         sys.exit(1)
 
     is_valid, normalized = check_version(version_str)
 
     if not is_valid:
         print(
-            f"エラー: バージョン '{version_str}' はPEP 440準拠ではありません",
+            f"Error: Version '{version_str}' is not PEP 440 compliant",
             file=sys.stderr,
         )
         sys.exit(1)
@@ -75,9 +75,9 @@ def main() -> None:
 
     if args.write:
         save_pyproject_toml(toml_path, data, normalized)
-        print(f"バージョンを正規化しました: {version_str} -> {normalized}")
+        print(f"Normalized version: {version_str} -> {normalized}")
     else:
-        print(f"元のバージョン: {version_str}")
-        print(f"正規化後(提案): {normalized}")
+        print(f"Original version: {version_str}")
+        print(f"Suggested normalized version: {normalized}")
 
     sys.exit(1)
