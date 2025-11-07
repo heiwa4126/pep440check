@@ -69,3 +69,35 @@ or
 uv tool install pep440check
 pep440check [args]
 ```
+
+## Development
+
+```sh
+git clone https://github.com/heiwa4126/pep440check.git
+cd pep440check
+uv sync --dev
+```
+
+Run tests:
+
+```sh
+uv run poe test
+```
+
+Run linter and formatter:
+
+```sh
+uv run poe check
+```
+
+Type checking:
+
+```sh
+uv run poe mypy
+```
+
+Build package:
+
+```sh
+uv run poe build
+```

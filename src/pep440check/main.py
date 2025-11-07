@@ -51,7 +51,7 @@ def main() -> None:
         sys.exit(1)
 
     if version_str == normalized:
-        print("OK")
+        print(f"OK: {version_str}")
         sys.exit(0)
 
     if args.write:
