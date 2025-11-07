@@ -1,12 +1,12 @@
 [project]
 name = "pep440check"
-version = "0.0.1rc1"
-# バージョンは uv が
+version = "0.0.1a1"
+# uv automatically converts versions to either:
 # - Regular releases: e.g. v1.2.3
 # - Pre-releases: e.g. v1.2.3rc1, v1.2.3b1, v1.2.3a1 (PEP 440 format)
-# のどちらかに強制変換するので、最初からこれにしておくこと
-description = "Display Python version, executable path, and script path when run with uv"
-keywords = ["uv", "python", "version", "path", "tool"]
+# So use PEP 440 format from the beginning
+description = "Check and normalize PEP 440 version strings in pyproject.toml"
+keywords = ["pep440", "python", "version", "pyproject", "packaging", "tool"]
 classifiers = [
   "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",

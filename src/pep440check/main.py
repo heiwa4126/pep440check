@@ -9,7 +9,7 @@ from pep440check.pep440check import (
 
 
 def main() -> None:
-    """メイン処理"""
+    """CLI main"""
     import argparse
 
     parser = argparse.ArgumentParser(

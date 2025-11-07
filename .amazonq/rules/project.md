@@ -2,9 +2,9 @@
 
 ## Project Overview
 
-- This is a Python package that displays Python version, executable path, and script path when run with Astral's uv
+- This is a Python package that checks and normalizes PEP 440 version strings in pyproject.toml files
 - Package name: pep440check
-- Target Python version: >=3.10
+- Target Python version: >=3.9
 - Build system: uv_build
 - License: MIT
 
@@ -23,8 +23,9 @@
 
 ## Dependencies
 
+- Runtime dependencies: packaging (for PEP 440 version handling)
 - Minimal dependencies - use standard library when possible
-- Development dependencies include: mypy, pytest, ruff, poethepoet
+- Development dependencies include: mypy, pytest, ruff, poethepoet, validate-pyproject
 
 ## File Structure
 
