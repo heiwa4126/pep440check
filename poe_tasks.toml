@@ -1,0 +1,74 @@
+# envfile = ".env"
+
+[executor]
+type = "uv"
+
+[env]
+RUN_BASE = "src/pep440check"
+TRIVY_IGNORE = "--skip-dirs ./tmp,./xml"
+SHELL = "bash"
+
+[tasks]
+main = "pep440check"
+
+# ======== tests
+test = "pytest -v --tb=short src"
+tests = ["test"]
+
+# ======== smoke tests
+smoke1 = "uv run --isolated --no-project --with dist/*.whl pep440check"
+smoke2 = "uv run --isolated --no-project --with dist/*.tar.gz pep440check"
+smoketest = ["smoke1", "smoke2"]
+
+# ======== lint
+check = "ruff check ./src"
+mypy = "mypy src"
+pyprojectlint = "validate-pyproject pyproject.toml"
+actionlint = "actionlint"
+
+# ======== build
+clean = "rm -rf dist"
+pack = "uv build"
+
+# ======== build
+build = [
+  "check",
+  # "format",
+  "mypy",
+  "tests",
+  "pyprojectlint",
+  # "actionlint",
+  "clean",
+  "pack",
+  "smoketest",
+]
+
+# ======== utils
+format.shell = """
+ruff format &&
+# biome format --write . &&
+dprint fmt --config ~/dprint.json &&
+textlint --fix "**/*.md"
+"""
+
+update.shell = "uv lock -U && uv sync"
+
+uvsync = "uv sync"
+requirements = "uv pip compile pyproject.toml --no-deps -o requirements.txt"
+sync = ["uvsync", "requirements"]
+
+trivy-config = "trivy config ."
+trivy-fs = "trivy fs ${TRIVY_IGNORE} ."
+trivy-check = ["trivy-config", "trivy-fs"]
+trivy = ["trivy-check"]
+trivy-license = "trivy fs ${TRIVY_IGNORE} --scanners license --severity HIGH,CRITICAL ."
+trivy-sbom = "trivy fs ${TRIVY_IGNORE} --scanners vuln --format cyclonedx --output sbom.cdx.json ."
+trivy-sbom-spdx = "trivy fs ${TRIVY_IGNORE} --scanners vuln --format spdx-json --output sbom.spdx.json ."
+sbom = ["requirements", "trivy-sbom", "trivy-sbom-spdx"]
+
+[tasks.testpypi]
+help = "Build and upload to Test PyPI"
+envfile = ".env"
+cmd = """uv publish \
+  --publish-url https://test.pypi.org/legacy/ \
+  --token $TEST_PYPI_TOKEN"""

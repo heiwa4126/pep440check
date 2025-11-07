@@ -1,0 +1,53 @@
+name: Build Python Package
+
+on:
+  workflow_call:
+    outputs:
+      package-built:
+        description: "Whether the package was successfully built"
+        value: ${{ jobs.build.outputs.package-built }}
+
+jobs:
+  build:
+    name: Build Python distribution packages
+    runs-on: ubuntu-latest
+    outputs:
+      package-built: ${{ steps.build.outputs.package-built }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@71cf2267d89c5cb81562390fa70a37fa40b1305e # v6-beta
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@85856786d1ce8acfbcc2f13a5f3fbd6b938f9f41 # v7.1.2
+        with:
+          enable-cache: true
+      # Note: v6 may cause issues with nektos/act due to missing shims
+
+      - name: Set up Python environment
+        run: uv python install
+
+      - name: Build distribution packages
+        id: build
+        run: |
+          # uv build
+          if uv run poe build; then
+            echo "package-built=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "package-built=false" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
+
+      # # Verify that the built packages work correctly
+      # - name: Test wheel installation
+      #   run: uv run --isolated --no-project --with dist/*.whl pep440check
+
+      # - name: Test source distribution installation
+      #   run: uv run --isolated --no-project --with dist/*.tar.gz pep440check
+
+      - name: Upload built packages as artifact
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        with:
+          name: python-package-distributions
+          path: dist/
+          retention-days: 1
