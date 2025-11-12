@@ -26,17 +26,19 @@ mypy = "mypy src"
 pyprojectlint = "validate-pyproject pyproject.toml"
 actionlint = "actionlint"
 
+lint = ["check", "mypy", "pyprojectlint"]
+"lint-full" = ["lint", "actionlint"]
+
 # ======== build
-clean = "rm -rf dist"
+# clean = "rm -rf dist"
+clean = "python -c \"import shutil; shutil.rmtree('dist', ignore_errors=True)\""
 pack = "uv build"
 
 # ======== build
 build = [
-  "check",
+  "lint",
   # "format",
-  "mypy",
   "tests",
-  "pyprojectlint",
   # "actionlint",
   "clean",
   "pack",
