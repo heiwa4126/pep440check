@@ -18,15 +18,15 @@ tests = ["test"]
 # ======== smoke tests
 smoke1 = "uv run --isolated --no-project --with dist/*.whl pep440check"
 smoke2 = "uv run --isolated --no-project --with dist/*.tar.gz pep440check"
-smoketest = ["smoke1", "smoke2"]
+smoke_test = ["smoke1", "smoke2"]
 
 # ======== lint
 check = "ruff check ./src"
 mypy = "mypy src"
-pyprojectlint = "validate-pyproject pyproject.toml"
+pyproject_lint = "validate-pyproject pyproject.toml"
 actionlint = "actionlint"
 
-lint = ["check", "mypy", "pyprojectlint"]
+lint = ["check", "mypy", "pyproject_lint"]
 "lint-full" = ["lint", "actionlint"]
 
 # ======== build
@@ -42,7 +42,7 @@ build = [
   # "actionlint",
   "clean",
   "pack",
-  "smoketest",
+  "smoke_test",
 ]
 
 # ======== utils
