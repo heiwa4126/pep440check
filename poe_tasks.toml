@@ -27,7 +27,7 @@ pyproject_lint = "validate-pyproject pyproject.toml"
 actionlint = "actionlint"
 
 lint = ["check", "mypy", "pyproject_lint"]
-"lint-full" = ["lint", "actionlint"]
+lint_full = ["lint", "actionlint"]
 
 # ======== build
 # clean = "rm -rf dist"
