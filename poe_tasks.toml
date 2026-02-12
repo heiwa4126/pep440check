@@ -29,6 +29,8 @@ actionlint = "actionlint"
 lint = ["check", "mypy", "pyproject_lint"]
 lint_full = ["lint", "actionlint"]
 
+audit = "uvx uv-secure ./uv.lock"
+
 # ======== build
 # clean = "rm -rf dist"
 clean = "python -c \"import shutil; shutil.rmtree('dist', ignore_errors=True)\""
@@ -36,6 +38,7 @@ pack = "uv build"
 
 # ======== build
 build = [
+  "audit",
   "lint",
   # "format",
   "tests",

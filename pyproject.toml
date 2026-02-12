@@ -27,10 +27,10 @@ Issues = "https://github.com/heiwa4126/pep440check/issues"
 Source = "https://github.com/heiwa4126/pep440check"
 
 [project.scripts]
-pep440check = "pep440check:main"
+pep440check = "pep440check.main:main"
 
 [build-system]
-requires = ["uv_build>=0.8.17,<0.10.0"]
+requires = ["uv_build>=0.8.17,<0.11.0"]
 build-backend = "uv_build"
 
 [dependency-groups]

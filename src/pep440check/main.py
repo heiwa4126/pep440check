@@ -1,7 +1,8 @@
 import sys
 from pathlib import Path
 
-from pep440check.pep440check import (
+from . import (
+    __version__,
     check_version,
     load_pyproject_toml,
     save_pyproject_toml,
@@ -23,6 +24,9 @@ def main() -> None:
         "--write",
         action="store_true",
         help="Write normalized version back to file",
+    )
+    parser.add_argument(
+        "-V", "--version", action="version", version=f"%(prog)s v{__version__}"
     )
 
     args = parser.parse_args()
