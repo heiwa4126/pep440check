@@ -16,8 +16,6 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="write normalized version back to file",
     )
-    parser.add_argument(
-        "-V", "--version", action="version", version=f"%(prog)s v{__version__}"
-    )
+    parser.add_argument("-V", "--version", action="version", version=__version__)
 
     return parser.parse_args()
