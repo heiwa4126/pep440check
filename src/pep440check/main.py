@@ -1,8 +1,9 @@
 import sys
 from pathlib import Path
 
+from pep440check.parse import parse_args
+
 from . import (
-    __version__,
     check_version,
     load_pyproject_toml,
     save_pyproject_toml,
@@ -11,25 +12,7 @@ from . import (
 
 def main() -> None:
     """CLI main"""
-    import argparse
-
-    parser = argparse.ArgumentParser(
-        description="Check and normalize PEP 440 version strings"
-    )
-    parser.add_argument(
-        "path", nargs="?", default="pyproject.toml", help="Path to pyproject.toml"
-    )
-    parser.add_argument(
-        "-w",
-        "--write",
-        action="store_true",
-        help="Write normalized version back to file",
-    )
-    parser.add_argument(
-        "-V", "--version", action="version", version=f"%(prog)s v{__version__}"
-    )
-
-    args = parser.parse_args()
+    args = parse_args()
 
     toml_path = Path(args.path).resolve()
     print(f"Target: {toml_path}")

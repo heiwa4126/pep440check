@@ -16,7 +16,6 @@ jobs:
     # https://docs.pypi.org/trusted-publishers/troubleshooting/#reusable-workflows-on-github
     # そのうえ actions でも変な docker イメージを読もうとするので、
     # こういう書き方しかできない。(2026-02)時々確認すること
-
     name: Publish to TestPyPI
     if: github.repository_owner == github.actor
     environment: testpypi

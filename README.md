@@ -11,12 +11,13 @@ Optionally, it can rewrite the file with the normalized version.
 ## Basic usage
 
 ```sh
-pep440check [path] [-w] [-h]
+pep440check [-h] [-w] [-V] [path]
 ```
 
-- `path`: Path to pyproject.toml (defaults to current directory's pyproject.toml if omitted)
-- `-w, --write`: Write normalized version back to file
-- `-h, --help`: Show help message and exit
+- `path`: path to pyproject.toml (defaults to current directory's pyproject.toml if omitted)
+- `-w, --write`: write normalized version back to file
+- `-h, --help`: show help message and exit
+- `-V, --version`: show program's version number and exit
 
 ### Exit codes
 
