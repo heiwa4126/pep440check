@@ -5,33 +5,32 @@ on:
     tags:
       # Regular releases: e.g. v1.2.3
       - "v[0-9]+.[0-9]+.[0-9]+"
-      # Pre-releases: e.g. v1.2.3rc1, v1.2.3b1, v1.2.3a1 (PEP 440 format)
-      - "v[0-9]+.[0-9]+.[0-9]+(a|b|rc)[0-9]+"
-jobs:
-  build:
-    name: Build package
-    uses: ./.github/workflows/build-package.yml
+      # # Pre-releases: e.g. v1.2.3rc1, v1.2.3b1, v1.2.3a1 (PEP 440 format)
+      # - "v[0-9]+.[0-9]+.[0-9]+(a|b|rc)[0-9]+"
 
+concurrency:
+  group: publish-pypi-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
   publish-pypi:
     name: Publish to PyPI
     runs-on: ubuntu-latest
-    needs: build
-    # Only run if pushed by repository owner and build succeeded
-    if: github.repository_owner == github.actor && needs.build.outputs.package-built == 'true'
+    if: github.repository_owner == github.actor
     environment: pypi
     permissions:
-      # IMPORTANT: this permission is mandatory for Trusted Publishing
-      id-token: write
+      id-token: write # IMPORTANT: this permission is mandatory for Trusted Publishing
       contents: read
 
     steps:
-      - name: Download built packages
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+      - name: Build and publish package to TestPyPI
+        uses: heiwa4126/reusable-workflows/build-uv-package@d9f908bf6e650e0e0fcad04138994c7cecf082f3 # v0.0.6
         with:
-          name: python-package-distributions
-          path: dist/
+          checkout: true
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e # v1.13.0
-        with:
-          skip-existing: true
