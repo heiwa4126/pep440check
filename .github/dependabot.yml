@@ -17,7 +17,7 @@ updates:
     directory: / # GitHub Actions のみ固定で"/"
     schedule:
       interval: monthly
-   groups:
+    groups:
       all-dependencies:
         patterns:
           - "*"
