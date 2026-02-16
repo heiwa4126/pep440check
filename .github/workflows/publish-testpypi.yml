@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - name: Build and publish package to TestPyPI
-        uses: heiwa4126/reusable-workflows/build-uv-package@d9f908bf6e650e0e0fcad04138994c7cecf082f3 # v0.0.6
+        uses: heiwa4126/reusable-workflows/build-uv-package@663ddef519c0033f16364f061210aaf4547515d2 # v0.0.7
         with:
           checkout: true
 
