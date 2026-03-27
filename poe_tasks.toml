@@ -22,7 +22,9 @@ smoke_test = ["smoke1", "smoke2"]
 
 # ======== lint
 check = "ruff check ./src"
-mypy = "mypy src"
+# mypy = "mypy src"
+mypy = "pyrefly check src"
+pyrefly = "pyrefly check src"
 pyproject_lint = "validate-pyproject pyproject.toml"
 actionlint = "actionlint"
 
@@ -38,23 +40,20 @@ pack = "uv build"
 
 # ======== build
 build = [
-  "audit",
-  "lint",
-  # "format",
-  "tests",
-  # "actionlint",
-  "clean",
-  "pack",
-  "smoke_test",
+	"audit",
+	"lint",
+	# "format",
+	"tests",
+	# "actionlint",
+	"clean",
+	"pack",
+	"smoke_test",
 ]
 
 # ======== utils
-format.shell = """
-ruff format &&
-# biome format --write . &&
-dprint fmt --config ~/dprint.json &&
-textlint --fix "**/*.md"
-"""
+format_python = "ruff format"
+format_others.shell = "oxfmt"
+format = ["format_python", "format_others"]
 
 update.shell = "uv lock -U && uv sync"
 
