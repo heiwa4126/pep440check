@@ -39,8 +39,9 @@ clean = "python -c \"import shutil; shutil.rmtree('dist', ignore_errors=True)\""
 pack = "uv build"
 
 # ======== build
-build = [
-	"audit",
+build = ["audit", "build1"]
+
+build1 = [
 	"lint",
 	# "format",
 	"tests",
@@ -49,6 +50,7 @@ build = [
 	"pack",
 	"smoke_test",
 ]
+
 
 # ======== utils
 format_python = "ruff format"
