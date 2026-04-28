@@ -289,7 +289,7 @@ wheels = [
 
 [[package]]
 name = "pep440check"
-version = "0.0.4a3"
+version = "0.0.4a4"
 source = { editable = "." }
 dependencies = [
     { name = "packaging" },
