@@ -31,7 +31,8 @@ actionlint = "actionlint"
 lint = ["check", "mypy", "pyproject_lint"]
 lint_full = ["lint", "actionlint"]
 
-audit = "uvx uv-secure --show-severity --ignore-vulns GHSA-5239-wwwm-4pmq ./uv.lock"
+# audit = "uvx uv-secure --show-severity --ignore-vulns GHSA-5239-wwwm-4pmq ./uv.lock"
+audit = "uvx uv-secure"
 
 # ======== build
 # clean = "rm -rf dist"
