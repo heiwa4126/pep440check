@@ -25,7 +25,7 @@ Source = "https://github.com/heiwa4126/pep440check"
 pep440check = "pep440check.main:main"
 
 [build-system]
-requires = ["uv_build>=0.8.17,<0.12.0"]
+requires = ["uv_build>=0.8.17,<0.13.0"]
 build-backend = "uv_build"
 
 [dependency-groups]
