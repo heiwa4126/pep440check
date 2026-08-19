@@ -24,7 +24,7 @@ def main() -> None:
     try:
         data = load_pyproject_toml(toml_path)
         version_str = data["project"]["version"]
-    except (KeyError, Exception) as e:
+    except KeyError as e:
         print(f"Error: Failed to read pyproject.toml: {e}", file=sys.stderr)
         sys.exit(1)
 

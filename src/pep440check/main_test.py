@@ -9,10 +9,11 @@ from pep440check.main import main
 
 def create_test_pyproject(content: str) -> Path:
     """Create a temporary pyproject.toml file with given content."""
-    temp_file = tempfile.NamedTemporaryFile(mode="w", suffix=".toml", delete=False)
-    temp_file.write(content)
-    temp_file.close()
-    return Path(temp_file.name)
+    with tempfile.NamedTemporaryFile(
+        mode="w", suffix=".toml", delete=False
+    ) as temp_file:
+        temp_file.write(content)
+        return Path(temp_file.name)
 
 
 def test_main_ok_case():

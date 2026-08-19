@@ -1,3 +1,9 @@
 {
-	"cSpell.words": ["nektos", "pinact", "PYPI", "rhysd", "shunsuke", "Sigstore", "testpypi"]
+	"cSpell.words": ["nektos", "pinact", "PYPI", "rhysd", "shunsuke", "Sigstore", "testpypi"],
+	"chat.tools.terminal.autoApprove": {
+		"/^poe check$/": {
+			"approve": true,
+			"matchCommandLine": true
+		}
+	}
 }
